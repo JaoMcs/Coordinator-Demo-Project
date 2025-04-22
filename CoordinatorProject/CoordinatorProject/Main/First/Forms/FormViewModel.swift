@@ -1,16 +1,13 @@
 //
-//  FirstTabViewModel.swift
+//  FormViewModel.swift
 //  CoordinatorProject
 //
-//  Created by João Marcos on 16/04/25.
+//  Created by João Marcos on 22/04/25.
 //
 
 import Foundation
 
-class FirstTabViewModel: ObservableObject {
-
-    @Published var name: String = ""
-    @Published var email: String = ""
+class FormViewModel: ObservableObject {
 
     @Published var conta: String = ""
     @Published var saldo: String = ""
@@ -20,13 +17,11 @@ class FirstTabViewModel: ObservableObject {
     let isDataCanBeLoaded: Bool = false
 
 
-    var actionForm: (() -> Void) = { }
-
     var goToSecoundFormView: (() -> Void) = { }
 
     var goToThirdFormView: (() -> Void) = { }
 
-    var showDetailRequested: (() -> Void) = { }
+    var goBackFormView: (() -> Void) = { }
 
     var closeAction: (() -> Void) = { }
 
@@ -46,6 +41,10 @@ class FirstTabViewModel: ObservableObject {
         } else {
             goToThirdFormView()
         }
+    }
+
+    func haveBackButton() {
+        
     }
 
 

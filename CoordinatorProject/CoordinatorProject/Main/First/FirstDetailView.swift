@@ -13,13 +13,36 @@ struct FirstDetailView: View {
 
     var body: some View {
         VStack {
-            Text("First Detail")
+            ZStack {
+                Color.gray.opacity(0.3)
+                    .ignoresSafeArea()
+                VStack {
+                    Text("Cadastro View")
 
-            TextField("Name", text: $viewModel.name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Name", text: $viewModel.name)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            TextField("email", text: $viewModel.email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("email", text: $viewModel.email)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    viewModel.closeAction()
+                } label: {
+                    Image(systemName: "xmark")
+                }
+            }
+
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    viewModel.actionForm()
+                }) {
+                    Image(systemName: "plus")
+                }
+            }
         }
     }
 }

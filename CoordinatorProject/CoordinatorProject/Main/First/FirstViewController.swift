@@ -13,8 +13,6 @@ class FirstViewController: UIViewController {
     var infoLabel: UILabel?
     var viewModel: FirstTabViewModel!
 
-    var showDetailRequested: (() -> Void) = { }
-
     var subscription = Set<AnyCancellable>()
 
     override func viewDidLoad() {
@@ -68,7 +66,7 @@ class FirstViewController: UIViewController {
 
     @objc
     func buttonAction() {
-        showDetailRequested()
+        viewModel.showDetailRequested()
     }
 
 }

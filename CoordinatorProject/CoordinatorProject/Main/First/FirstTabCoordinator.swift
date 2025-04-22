@@ -13,6 +13,8 @@ class FirstTabCoordinator: NSObject, Coordinator {
 
     var rootViewController = UINavigationController()
 
+    var childCoordinators = [Coordinator]()
+
     let viewModel = FirstTabViewModel()
 
     override init () {
@@ -25,8 +27,14 @@ class FirstTabCoordinator: NSObject, Coordinator {
     lazy var firstViewController: FirstViewController = {
         let vc = FirstViewController()
         vc.viewModel = viewModel
-        vc.showDetailRequested = { [weak self] in
+        viewModel.showDetailRequested = { [weak self] in
             self?.goToDetail()
+        }
+        viewModel.actionForm = { [weak self] in
+            self?.goFormFluxo()
+        }
+        viewModel.closeAction = { [weak self] in
+            self?.closeViews()
         }
         vc.title = "First"
         return vc
@@ -39,6 +47,17 @@ class FirstTabCoordinator: NSObject, Coordinator {
     func goToDetail() {
         let detailViewController = UIHostingController(rootView: FirstDetailView(viewModel: viewModel))
         rootViewController.pushViewController(detailViewController, animated: true)
+    }
+
+    func goFormFluxo() {
+        let formsCoordinator = FormsCoordinator()
+        formsCoordinator.start()
+        self.childCoordinators = [formsCoordinator]
+        self.rootViewController.present(formsCoordinator.rootViewController, animated: true, completion: nil)
+    }
+
+    func closeViews() {
+        rootViewController.popToRootViewController(animated: true)
     }
 }
 
